@@ -1,0 +1,11 @@
+[package]
+name = "adammillsy/inputter"
+description = "A light-weight cross-platform input manager"
+version = "1.0.0"
+license = "MIT"
+authors = ["Adam Mills"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+Signal = "sleitnick/signal@1.5.0"
