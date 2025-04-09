@@ -25,7 +25,7 @@ Inputter.Input = {
 	@param inputs {Input} -- The inputs that will trigger the inputter. This should be a table of Input objects.
 	@return Inputter -- The new inputter object
 
-	Creates a new inputter object. This should be used to create a new inputter for each action the player can make.
+	Creates a new inputter object, ideally there should be one input for each different player action. I.e. an inputter for punch, another inputter for fly, etc.
 	```lua
 	local Inputter = require(ReplicatedStorage.Packages.Inputter)
 
@@ -37,7 +37,6 @@ Inputter.Input = {
 	)
 	```
 ]=]
-
 function Inputter.new(name: string, inputs : {Input}) : Inputter
     local self = setmetatable({}, Inputter)
     if not name or typeof(name) ~= "string" then
@@ -81,20 +80,35 @@ function Inputter.new(name: string, inputs : {Input}) : Inputter
 		Signal that is fired when the inputter is deactivated. This will be fired when all of the inputs bound to the inputter are deactivated.
 	]=]
     self.OnDeactivated = Signal.new()
+    --[=[
+        @within Inputter
+        @prop ActiveInputs {Input}
+        @readonly
+        The inputs currently used by the inputter.
+    ]=]
     self.ActiveInputs = {}
     self._activeConnections = {}
     self:_setup(inputs)
     return self
 end
 
--- Initialise the inputter with the passed inputs
+--[=[
+    @within Inputter
+    @private
+    @param Inputs {Input} -- The inputs that will trigger the inputter.
+    Initial inputter setup method, used to begin listening to the initially passed inputs. Should only be called internally.
+]=]
 function Inputter:_setup(Inputs : {Input}) 
     for _, Input in pairs(Inputs) do
         self:AddInput(Input)
     end
 end
 
--- Add a new input that triggers the inputter
+--[=[
+    @within Inputter
+    @param Input Input -- The input to add to the inputter.
+    Adds a new input to an already existing inputter.
+]=]
 function Inputter:AddInput(Input : Input)
     if not Input then
         error("Input cannot be nil")
@@ -111,6 +125,12 @@ function Inputter:AddInput(Input : Input)
     end
 end
 
+--[=[
+    @within Inputter
+    @tag Work In Progress
+    @param Input Input -- The input to remove from the inputter.
+    Removes an input from an already existing inputter. This method is a work in progress, in the future it may be expanded to allow removal by keybind or other properties.
+]=]
 function Inputter:RemoveInput(Input : Input)
     for i,v in pairs(self.ActiveInputs) do
         if v == Input then
