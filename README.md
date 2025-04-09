@@ -45,16 +45,16 @@ Require the module in your project:
 local Inputter = require(Path.To.Inputter)
 ```
 
-Create a new input handler that responds to both mouse and gamepad input:
+The following example creates a new inputter that responds to both mouse and gamepad input:
 
 ```lua
 local exampleInput = Inputter.new("ExampleInput", {
     -- Detects left mouse button press
-    Inputter.Input.Press({
+    Inputter.Input.PRESS({
         Input = Enum.UserInputType.MouseButton1
     }),
     -- Detects R2 trigger on gamepads
-    Inputter.Input.Press({
+    Inputter.Input.PRESS({
         Input = Enum.KeyCode.ButtonR2
     })
 })
