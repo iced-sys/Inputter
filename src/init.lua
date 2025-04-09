@@ -7,18 +7,37 @@ type Signal = Types.Signal
 type Binding = Types.Binding
 type Input = Types.Input
 
+
+--[=[
+	@class Inputter
+	The inputter class represents each individual action a player can make. It should be used to abstract away from the different input methods ROBLOX provides.
+]=]
 local Inputter = {}
 Inputter.__index = Inputter
 
--- Table containing the constructors for the different input types
 Inputter.Input = {
-    -- Multiple press input handler.
     MULTIPLE_PRESS = require(script.Input.MULTIPLE_PRESS).new,
-    -- Press input handler.
     PRESS = require(script.Input.PRESS).new,
 }
 
--- Create a new Inputter with the given name and connected to the given inputs.
+--[=[
+	@param name string -- The name of the inputter. Should be unique
+	@param inputs {Input} -- The inputs that will trigger the inputter. This should be a table of Input objects.
+	@return Inputter -- The new inputter object
+
+	Creates a new inputter object. This should be used to create a new inputter for each action the player can make.
+	```lua
+	local Inputter = require(ReplicatedStorage.Packages.Inputter)
+
+	local punchInput = Inputter.new("PunchInput", {
+		Inputter.Input.PRESS({
+			Input = Enum.UserInputType.MouseButton1
+			IgnoreGameProcessedEvent = true,
+		}
+	)
+	```
+]=]
+
 function Inputter.new(name: string, inputs : {Input}) : Inputter
     local self = setmetatable({}, Inputter)
     if not name or typeof(name) ~= "string" then
@@ -27,10 +46,40 @@ function Inputter.new(name: string, inputs : {Input}) : Inputter
     if not inputs or typeof(inputs) ~= "table" then
         error("Input binds must be a table")
     end
+	--[=[
+		@within Inputter
+		@prop Name string
+		@readonly
+		Name of the inputter. This should be unique for each inputter.
+	]=]
     self.Name = name
+	--[=[
+		@within Inputter
+		@prop Active boolean
+		@readonly
+		Whether the inputter is currently active (i.e. is at least one of the inputs bound triggered). Can be used if the action triggered relies on checking the input is still active.
+	]=]
     self.Active = false
+	--[=[
+		@within Inputter
+		@prop Enabled boolean
+		@readonly
+		Whether the inputter is enabled. If this is false, the inputter will not trigger any events.
+	]=]
     self.Enabled = true
+	--[=[
+		@within Inputter
+		@prop OnActivated Signal
+		@readonly
+		Signal that is fired when the inputter is activated. This will be fired when at least one of the inputs bound to the inputter is triggered.
+	]=]
     self.OnActivated = Signal.new()
+	--[=[
+		@within Inputter
+		@prop OnDeactivated Signal
+		@readonly
+		Signal that is fired when the inputter is deactivated. This will be fired when all of the inputs bound to the inputter are deactivated.
+	]=]
     self.OnDeactivated = Signal.new()
     self.ActiveInputs = {}
     self._activeConnections = {}
