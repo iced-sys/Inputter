@@ -22,10 +22,12 @@ end
 function Binding.new(BindingInfo : BindingInfo): Binding
     local self = setmetatable({}, Binding)
     local input = BindingInfo.Input or error("Input not provided")
-    local IgnoreGameProcessedEvent = BindingInfo.IgnoreGameProcessedEvent or true
+    if BindingInfo.IgnoreGameProcessedEvent == nil then
+        BindingInfo.IgnoreGameProcessedEvent = true
+    end
 
     self.Input = input
-    self.IgnoreGameProcessedEvent = IgnoreGameProcessedEvent == nil and true or IgnoreGameProcessedEvent
+    self.IgnoreGameProcessedEvent = BindingInfo.IgnoreGameProcessedEvent
     self.Pressed = false
     self.OnActivated = Signal.new()
     self.OnDeactivated = Signal.new()
