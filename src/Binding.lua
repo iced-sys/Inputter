@@ -19,7 +19,7 @@ local function matchesKeyboardInput(input : any, userInput: InputObject): boolea
 end
 
 -- Constructor for Binding class
-function Binding.new(BindingInfo : BindingInfo): Binding
+function Binding.new(BindingInfo : BindingInfo) : Binding
     local self = setmetatable({}, Binding)
     local input = BindingInfo.Input or error("Input not provided")
     if BindingInfo.IgnoreGameProcessedEvent == nil then

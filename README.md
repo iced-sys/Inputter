@@ -49,24 +49,20 @@ The following example creates a new inputter that responds to both mouse and gam
 
 ```lua
 local exampleInput = Inputter.new("ExampleInput", {
-    -- Detects left mouse button press
-    Inputter.Input.PRESS({
-        Input = Enum.UserInputType.MouseButton1
+    Inputter.Trigger.PRESS({
+        Input = Enum.KeyCode.ButtonR2,
     }),
-    -- Detects R2 trigger on gamepads
-    Inputter.Input.PRESS({
-        Input = Enum.KeyCode.ButtonR2
-    })
+    Inputter.Trigger.MULTIPLE_PRESS({
+        Input = Enum.UserInputType.MouseButton1,
+    }, 2, 0.3),
 })
 
--- Fires when either input is activated
 exampleInput.OnActivated:Connect(function()
-    -- Start your desired action
+    print("Activated")
 end)
 
--- Fires when the input is released
 exampleInput.OnDeactivated:Connect(function()
-    -- Stop the action
+    print("Deactivated")
 end)
 ```
 

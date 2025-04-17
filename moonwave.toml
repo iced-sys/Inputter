@@ -1,0 +1,17 @@
+gitSourceBranch = "main"
+changelog = true
+
+[[classOrder]]
+classes = ["Inputter"]
+
+[[classOrder]]
+section = "Triggers"
+classes = ["MULTIPLE_PRESS", "PRESS"]
+
+[docusaurus]
+onBrokenLinks = "throw"
+onBrokenMarkdownLinks = "warn"
+
+[footer]
+style = "dark"
+copyright = "Copyright © 2025 Adam Mills."

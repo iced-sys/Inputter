@@ -2,18 +2,25 @@
     Most basic form of input handler. Triggers when the input is pressed.
     Author: Adam Mills
 ]]
-local AbstractInput = require(script.Parent.AbstractInput)
+local AbstractTrigger = require(script.Parent.AbstractTrigger)
 local Types = require(script.Parent.Parent.Types)
 local Binding = require(script.Parent.Parent.Binding)
 
 type PRESS = Types.PRESS
 
-local PRESS = setmetatable({}, AbstractInput)
+--[=[
+	@class PRESS
+	A type of trigger that fires when the given input is pressed.
+]=]
+local PRESS = setmetatable({}, AbstractTrigger)
 PRESS.__index = PRESS
 
--- Constructor for PRESS class
+--[=[
+	@param BindingInfo BindingInfo -- The binding information for the input. The input index must be only a single input method (i.e. Enum.KeyCode, Enum.UserInputType, or GuiButton).
+	@return Input -- The new PRESS object.
+]=]
 function PRESS.new(BindingInfo : table) : PRESS
-    local self = setmetatable(AbstractInput.new(), PRESS)
+    local self = setmetatable(AbstractTrigger.new(), PRESS)
     self.Binding = Binding.new(BindingInfo)
     self._active = false
     self:_setup()
