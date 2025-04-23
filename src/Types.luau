@@ -1,6 +1,6 @@
 local Signal = require(script.Parent.Parent.Signal)
 
-export type Signal = Signal.Signal
+export type Signal<T...> = Signal.Signal<T...>
 
 --[=[
 	@class Inputter
@@ -11,8 +11,8 @@ export type Inputter = {
 	Active: boolean,
 	Enabled: boolean,
 	ActiveTriggers : {Trigger}, -- The triggers that are currently active. This is used to determine if the inputter is active or not.
-	OnActivated: Signal,
-	OnDeactivated: Signal,
+	OnActivated : Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is activated.
+	OnDeactivated : Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is deactivated.
 
 	new: (name: string, inputs: {Trigger}) -> Inputter,
 	AddInput: (self: Inputter, input: Trigger) -> (),
@@ -37,16 +37,14 @@ export type BindingInfo = {
 
 export type Binding = {
 	Input: Enum.KeyCode | Enum.UserInputType | GuiButton,
-	OnActivated : Signal,
-	OnDeactivated : Signal,
 	Pressed: boolean,
 	Destroy: (self: Binding) -> (),
 	new: (BindingInfo: BindingInfo) -> Binding,
 }
 
 export type Trigger = {
-	OnActivated: Signal,
-	OnDeactivated: Signal,
+	OnActivated : Signal.Signal<() -> ()>,
+	OnDeactivated : Signal.Signal<() -> ()>,
 }
 export type MULTIPLE_PRESS = Trigger & {
 	new: (BindingInfo : BindingInfo, PressCount: number, TimeFrame: number) -> Trigger,

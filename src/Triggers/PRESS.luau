@@ -7,6 +7,7 @@ local Types = require(script.Parent.Parent.Types)
 local Binding = require(script.Parent.Parent.Binding)
 
 type PRESS = Types.PRESS
+type BindingInfo = Types.BindingInfo
 
 --[=[
 	@class PRESS
@@ -19,7 +20,7 @@ PRESS.__index = PRESS
 	@param BindingInfo BindingInfo -- The binding information for the input. The input index must be only a single input method (i.e. Enum.KeyCode, Enum.UserInputType, or GuiButton).
 	@return Input -- The new PRESS object.
 ]=]
-function PRESS.new(BindingInfo : table) : PRESS
+function PRESS.new(BindingInfo : BindingInfo) : PRESS
     local self = setmetatable(AbstractTrigger.new(), PRESS)
     self.Binding = Binding.new(BindingInfo)
     self._active = false

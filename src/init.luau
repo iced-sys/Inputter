@@ -3,7 +3,7 @@ local Signal = require(ReplicatedStorage.Packages.Signal)
 
 local Types = require(script.Types)
 export type Inputter = Types.Inputter
-type Signal = Types.Signal
+type Signal<T...> = Types.Signal<T...>
 type Trigger = Types.Trigger
 
 local Inputter = {}
@@ -29,16 +29,17 @@ Inputter.Trigger = {
 		Inputter.Trigger.PRESS({
 			Input = Enum.KeyCode.ButtonR2,
 			IgnoreGameProcessedEvent = true,
-		}
+		}),
 		Inputter.Trigger.MULTIPLE_PRESS({
 			Input = Enum.UserInputType.MouseButton1,
 			IgnoreGameProcessedEvent = true,
 			PressCount = 2,
 			TimeFrame = 0.3,
 		})
-	)
+	})
 	```
 ]=]
+
 function Inputter.new(name: string, triggers : {Trigger}) : Inputter
 	local self = setmetatable({}, Inputter)
 	if not name or typeof(name) ~= "string" then
@@ -231,7 +232,7 @@ function Inputter:Destroy()
 	end
 	self.OnActivated:Destroy()
 	self.OnDeactivated:Destroy()
-	for i,v in pairs(self) do
+	for i, _ in pairs(self) do
 		self[i] = nil
 	end
 end
