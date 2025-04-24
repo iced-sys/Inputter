@@ -1,5 +1,4 @@
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Signal = require(ReplicatedStorage.Packages.Signal)
+local Signal = require(script.Parent.Signal)
 
 local Types = require(script.Types)
 export type Inputter = Types.Inputter
