@@ -1,6 +1,6 @@
 # Inputter
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/) [![CI](https://github.com/AdamMillsy/Inputter/actions/workflows/ci.yaml/badge.svg)](https://github.com/AdamMillsy/Inputter/actions/workflows/ci.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/) [![Docs](https://github.com/AdamMillsy/Inputter/actions/workflows/docs.yaml/badge.svg)](https://github.com/AdamMillsy/Inputter/actions/workflows/docs.yaml) [![Continuous Integration](https://github.com/AdamMillsy/Inputter/actions/workflows/ci.yaml/badge.svg)](https://github.com/AdamMillsy/Inputter/actions/workflows/ci.yaml)
 
 **Inputter** is a fully-typed, cross-platform ROBLOX input manager for clean and efficient input handling across PC, mobile, and console devices.
 
