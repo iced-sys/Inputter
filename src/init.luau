@@ -3,8 +3,9 @@ local Signal = require(ReplicatedStorage.Packages.Signal)
 
 local Types = require(script.Types)
 export type Inputter = Types.Inputter
-type Signal<T...> = Types.Signal<T...>
-type Trigger = Types.Trigger
+export type BindingInfo = Types.BindingInfo
+export type Signal<T...> = Types.Signal<T...>
+export type Trigger = Types.Trigger
 
 local Inputter = {}
 Inputter.__index = Inputter
@@ -23,8 +24,6 @@ Inputter.Trigger = {
 
 	Creates a new inputter object, ideally there should be one input for each different player action. I.e. an inputter for punch, another inputter for fly, etc.
 	```lua
-	local Inputter = require(ReplicatedStorage.Packages.Inputter)
-
 	local punchInput = Inputter.new("PunchInput", {
 		Inputter.Trigger.PRESS({
 			Input = Enum.KeyCode.ButtonR2,
@@ -33,9 +32,7 @@ Inputter.Trigger = {
 		Inputter.Trigger.MULTIPLE_PRESS({
 			Input = Enum.UserInputType.MouseButton1,
 			IgnoreGameProcessedEvent = true,
-			PressCount = 2,
-			TimeFrame = 0.3,
-		})
+		}, 2, 0.3)
 	})
 	```
 ]=]
