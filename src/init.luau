@@ -36,7 +36,7 @@ Inputter.Trigger = {
 	```
 ]=]
 
-function Inputter.new(name: string, triggers : {Trigger}) : Inputter
+function Inputter.new(name: string, triggers: { Trigger }): Inputter
 	local self = setmetatable({}, Inputter)
 	if not name or typeof(name) ~= "string" then
 		error("Input name must be a string")
@@ -97,7 +97,7 @@ end
 	@param triggers {Trigger} -- The triggers that will be used by the inputter.
 	Initial inputter setup method, used to begin listening to the initially passed triggers. Should only be called internally.
 ]=]
-function Inputter:_setup(triggers : {Trigger}) 
+function Inputter:_setup(triggers: { Trigger })
 	for _, Input in pairs(triggers) do
 		self:AddInput(Input)
 	end
@@ -108,18 +108,24 @@ end
 	@param trigger Trigger -- The trigger to add to the inputter.
 	Adds a new trigger to an already existing inputter.
 ]=]
-function Inputter:AddInput(trigger : Trigger)
+function Inputter:AddInput(trigger: Trigger)
 	if not trigger then
 		error("Trigger cannot be nil")
 	end
 	table.insert(self.ActiveTriggers, trigger)
 	self._activeConnections[trigger] = {}
-	table.insert(self._activeConnections[trigger], trigger.OnActivated:Connect(function(...)
-		self:_activate(...)
-	end))
-	table.insert(self._activeConnections[trigger], trigger.OnDeactivated:Connect(function(...)
-		self:_deactivate(...)
-	end))
+	table.insert(
+		self._activeConnections[trigger],
+		trigger.OnActivated:Connect(function(...)
+			self:_activate(...)
+		end)
+	)
+	table.insert(
+		self._activeConnections[trigger],
+		trigger.OnDeactivated:Connect(function(...)
+			self:_deactivate(...)
+		end)
+	)
 end
 
 --[=[
@@ -128,8 +134,8 @@ end
 	@param Trigger Trigger -- The trigger to remove from the inputter.
 	Removes a trigger from an already existing inputter. This method is a work in progress, in the future it may be expanded to allow removal by keybind or other properties.
 ]=]
-function Inputter:RemoveInput(Trigger : Trigger)
-	for i,v in pairs(self.ActiveTriggers) do
+function Inputter:RemoveInput(Trigger: Trigger)
+	for i, v in pairs(self.ActiveTriggers) do
 		if v == Trigger then
 			table.remove(self.ActiveTriggers, i)
 			break

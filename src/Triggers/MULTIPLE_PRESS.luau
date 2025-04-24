@@ -19,7 +19,7 @@ MULTIPLE_PRESS.__index = MULTIPLE_PRESS
 	@param TimeFrame number -- The time frame in seconds within which the input must be pressed. Default is 0.5 seconds.
 	@return Input -- The new MULTIPLE_PRESS object.
 ]=]
-function MULTIPLE_PRESS.new(BindingInfo : BindingInfo, PressCount : number, TimeFrame : number) : Trigger
+function MULTIPLE_PRESS.new(BindingInfo: BindingInfo, PressCount: number, TimeFrame: number): Trigger
 	local self = setmetatable(AbstractTrigger.new(), MULTIPLE_PRESS)
 	self.Binding = Binding.new(BindingInfo)
 	self._MaxPresses = PressCount or warn("PressCount not provided, defaulting to 2") and 2

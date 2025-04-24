@@ -13,21 +13,21 @@ type Trigger = Types.Trigger
 --[=[
 	@return Trigger -- The new AbstractTrigger object.
 ]=]
-function AbstractTrigger.new() : Trigger
-    local self = setmetatable({}, AbstractTrigger)
-    --[=[
+function AbstractTrigger.new(): Trigger
+	local self = setmetatable({}, AbstractTrigger)
+	--[=[
         @within AbstractTrigger
         @private
         @prop OnActivated Signal -- The signal that is fired when the trigger is activated.
     ]=]
-    self.OnActivated = Signal.new()
-    --[=[
+	self.OnActivated = Signal.new()
+	--[=[
         @within AbstractTrigger
         @private
         @prop OnDeactivated Signal -- The signal that is fired when the trigger is deactivated.
     ]=]
-    self.OnDeactivated = Signal.new()
-    return self
+	self.OnDeactivated = Signal.new()
+	return self
 end
 
 --[=[
@@ -37,7 +37,7 @@ end
     Fires the OnActivated signal.
 ]=]
 function AbstractTrigger:_activated(...)
-    self.OnActivated:Fire(...)
+	self.OnActivated:Fire(...)
 end
 
 --[=[
@@ -47,7 +47,7 @@ end
     Fires the OnDeactivated signal.
 ]=]
 function AbstractTrigger:_deactivated(...)
-    self.OnDeactivated:Fire(...)
+	self.OnDeactivated:Fire(...)
 end
 
 return AbstractTrigger

@@ -10,14 +10,14 @@ export type Inputter = {
 	Name: string,
 	Active: boolean,
 	Enabled: boolean,
-	ActiveTriggers : {Trigger}, -- The triggers that are currently active. This is used to determine if the inputter is active or not.
-	OnActivated : Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is activated.
-	OnDeactivated : Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is deactivated.
+	ActiveTriggers: { Trigger }, -- The triggers that are currently active. This is used to determine if the inputter is active or not.
+	OnActivated: Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is activated.
+	OnDeactivated: Signal.Signal<() -> ()>, -- The signal that is fired when the inputter is deactivated.
 
-	new: (name: string, inputs: {Trigger}) -> Inputter,
+	new: (name: string, inputs: { Trigger }) -> Inputter,
 	AddInput: (self: Inputter, input: Trigger) -> (),
 	RemoveInput: (self: Inputter, input: Trigger) -> (),
-	GetAllInputs: (self: Inputter) -> {Trigger},
+	GetAllInputs: (self: Inputter) -> { Trigger },
 	IsActive: (self: Inputter) -> boolean,
 	Enable: (self: Inputter) -> (),
 	Disable: (self: Inputter) -> (),
@@ -31,7 +31,7 @@ export type Inputter = {
 	.IgnoreGameProcessedEvent boolean? -- By default this value is false, and inputs already processed by the game (such as when interacting with GUI) are ignored. If this flag is set to true the inputter will be triggered regardless of the context of the input.
 ]=]
 export type BindingInfo = {
-	Input : Enum.KeyCode | Enum.UserInputType | GuiButton | {Enum.KeyCode | Enum.UserInputType | GuiButton},
+	Input: Enum.KeyCode | Enum.UserInputType | GuiButton | { Enum.KeyCode | Enum.UserInputType | GuiButton },
 	IgnoreGameProcessedEvent: boolean?,
 }
 
@@ -43,14 +43,14 @@ export type Binding = {
 }
 
 export type Trigger = {
-	OnActivated : Signal.Signal<() -> ()>,
-	OnDeactivated : Signal.Signal<() -> ()>,
+	OnActivated: Signal.Signal<() -> ()>,
+	OnDeactivated: Signal.Signal<() -> ()>,
 }
 export type MULTIPLE_PRESS = Trigger & {
-	new: (BindingInfo : BindingInfo, PressCount: number, TimeFrame: number) -> Trigger,
+	new: (BindingInfo: BindingInfo, PressCount: number, TimeFrame: number) -> Trigger,
 }
 export type PRESS = Trigger & {
-	new: (BindingInfo : BindingInfo) -> Trigger,
+	new: (BindingInfo: BindingInfo) -> Trigger,
 }
 
 return {}
