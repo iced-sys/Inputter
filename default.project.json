@@ -1,6 +1,8 @@
 {
     "name": "inputter",
+
     "tree": {
       "$path": "src"
     }
+    
   }

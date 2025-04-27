@@ -14,16 +14,14 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Aftman
         uses: ok-nick/setup-aftman@v0.4.2
-      #- name: Publish release to Wally
-      #  shell: bash
-      #  env:
-      #    WALLY_AUTH: ${{ secrets.WALLY_AUTH }}
-      #  run: |
-      #    mkdir -p ~/.wally
-      #    echo "$WALLY_AUTH" > ~/.wally/auth.toml
-      #    cd src
-      #    wally publish
-      #    cd ..
+      - name: Publish release to Wally
+        shell: bash
+        env:
+          WALLY_AUTH: ${{ secrets.WALLY_AUTH }}
+        run: |
+          mkdir -p ~/.wally
+          echo "$WALLY_AUTH" > ~/.wally/auth.toml
+          wally publish
       - name: Get version
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
