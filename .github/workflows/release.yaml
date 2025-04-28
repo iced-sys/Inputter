@@ -19,7 +19,7 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Publish release to Wally
         shell: bash
@@ -37,7 +37,7 @@ jobs:
           mv wally_build.toml rbxl-build-dir/wally.toml
           mv publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
-          echo -e '[dependencies]\n Inputter = "adammillsy/inputter@${{ steps.get_version.outputs.VERSION }}"' >> wally.toml
+          echo -e 'Inputter = "adammillsy/inputter@'${{ steps.get_version.outputs.VERSION#v.}}'"' >> wally.toml
           cat wally.toml
           wally install
           rojo build publish.project.json --o ../place.rbxl
@@ -48,6 +48,6 @@ jobs:
       # - name: Release
       #   uses: softprops/action-gh-release@v2
       #   with:
-      #     name: Release v${{ steps.get_version.outputs.VERSION }}
+      #     name: Release ${{ steps.get_version.outputs.VERSION }}
       #     body_path: log.md
       #     fail_on_unmatched_files: true
