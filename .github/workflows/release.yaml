@@ -38,6 +38,7 @@ jobs:
           mv .github/workflows/resources/publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
           echo -e 'Inputter = "adammillsy/inputter@'${{ steps.get_version.outputs.VERSION }}'"' >> wally.toml
+          cat wally.toml
           wally install
           rojo build publish.project.json --output place.rbxl
           mv place.rbxl ../place.rbxl
