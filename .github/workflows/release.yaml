@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -p rbxl-build-dir
           mv wally_build.toml rbxl-build-dir/wally.toml
-          mv publish.project.json ~/rbxl-build-dir/publish.project.json
+          mv publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
           echo '[dependencies]\n Inputter = "adammillsy/inputter@${{ steps.get_version.outputs.VERSION }}"' > wally.toml
           wally install
