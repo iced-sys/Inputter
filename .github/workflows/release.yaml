@@ -33,13 +33,14 @@ jobs:
       - name : Build RBXM
         shell: bash
         run: |
-          mkdir -p ~/rbxl-build-dir
-          mv ~/wally_build.toml ~/rbxl-build-dir/wally.toml
-          mv ~/publish.project.json ~/rbxl-build-dir/publish.project.json
-          cd ~/rbxl-build-dir
+          mkdir -p rbxl-build-dir
+          mv wally_build.toml rbxl-build-dir/wally.toml
+          mv publish.project.json ~/rbxl-build-dir/publish.project.json
+          cd rbxl-build-dir
           echo '[dependencies]\n Inputter = "adammillsy/inputter@${{ steps.get_version.outputs.VERSION }}"' > wally.toml
           wally install
           rojo build publish.project.json --o ../place.rbxl
+          cd ..
 
       # - name: Changelog
       #   run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
