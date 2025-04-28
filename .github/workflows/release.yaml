@@ -30,7 +30,7 @@ jobs:
           echo "$WALLY_AUTH" > ~/.wally/auth.toml
           wally publish
 
-      - name : Build RBXM
+      - name : Build Rojo Place
         shell: bash
         run: |
           mkdir -p rbxl-build-dir
@@ -42,8 +42,12 @@ jobs:
           rojo build publish.project.json --output place.rbxl
           mv place.rbxl ../place.rbxl
           cd ..
+
+      - name: Build RBXM
+        shell: bash
+        run: |
           ls
-          remodel run .github/workflows/scripts/publish.lua
+          remodel run publish.lua
 
       - name: Changelog
         run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
