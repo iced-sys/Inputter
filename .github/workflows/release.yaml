@@ -42,6 +42,7 @@ jobs:
           rojo build publish.project.json --output place.rbxl
           mv place.rbxl ../place.rbxl
           cd ..
+          ls
           remodel run .github/workflows/scripts/publish.lua
 
       - name: Changelog
