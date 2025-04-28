@@ -34,8 +34,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p rbxl-build-dir
-          mv wally_build.toml rbxl-build-dir/wally.toml
-          mv publish.project.json rbxl-build-dir/publish.project.json
+          mv .github/workflows/resources/wally_build.toml rbxl-build-dir/wally.toml
+          mv .github/workflows/resources/publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
           echo -e 'Inputter = "adammillsy/inputter@'${{ steps.get_version.outputs.VERSION }}'"' >> wally.toml
           wally install

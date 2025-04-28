@@ -22,7 +22,7 @@
 Add the following line to your `wally.toml` dependencies:
 
 ```toml
-Inputter = "adammillsy/inputter@0.0.2"
+Inputter = "adammillsy/inputter@0.0.3"
 ```
 
 Then run:
