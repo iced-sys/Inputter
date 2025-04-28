@@ -40,7 +40,7 @@ jobs:
           echo -e 'Inputter = "adammillsy/inputter@'${{ steps.get_version.outputs.VERSION }}'"' >> wally.toml
           cat wally.toml
           wally install
-          rojo build publish.project.json --o ../place.rbxl
+          rojo build publish.project.json --output place.rbxl
           cd ..
 
       # - name: Changelog
