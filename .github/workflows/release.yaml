@@ -38,6 +38,7 @@ jobs:
           mv publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
           echo -e '[dependencies]\n Inputter = "adammillsy/inputter@${{ steps.get_version.outputs.VERSION }}"' >> wally.toml
+          cat wally.toml
           wally install
           rojo build publish.project.json --o ../place.rbxl
           cd ..
