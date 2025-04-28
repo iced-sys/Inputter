@@ -1,6 +1,7 @@
-## 
+## 0.0.2
 
-Wally deployment
+- Wally deployment
+- RBXM and RBXL building with Lune
 
 ## 0.0.1
 
