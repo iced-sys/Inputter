@@ -38,16 +38,21 @@ jobs:
           mv publish.project.json rbxl-build-dir/publish.project.json
           cd rbxl-build-dir
           echo -e 'Inputter = "adammillsy/inputter@'${{ steps.get_version.outputs.VERSION }}'"' >> wally.toml
-          cat wally.toml
           wally install
           rojo build publish.project.json --output place.rbxl
+          mv place.rbxl ../place.rbxl
           cd ..
+          remodel run .github/workflows/scripts/publish.lua
 
-      # - name: Changelog
-      #   run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
-      # - name: Release
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     name: Release v.${{ steps.get_version.outputs.VERSION }}
-      #     body_path: log.md
-      #     fail_on_unmatched_files: true
+      - name: Changelog
+        run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release v.${{ steps.get_version.outputs.VERSION }}
+          body_path: log.md
+          fail_on_unmatched_files: true
+          files: |
+            place.rbxl
+            Inputter.rbxm
