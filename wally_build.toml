@@ -1,0 +1,9 @@
+[package]
+name = "adammillsy/build-rbxl"
+version = "0.0.1"
+license = "MIT"
+authors = ["Adam Mills"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]

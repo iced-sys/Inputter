@@ -12,8 +12,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+
       - name: Install Aftman
         uses: ok-nick/setup-aftman@v0.4.2
+
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Publish release to Wally
         shell: bash
         env:
@@ -22,14 +29,23 @@ jobs:
           mkdir -p ~/.wally
           echo "$WALLY_AUTH" > ~/.wally/auth.toml
           wally publish
-      - name: Get version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      - name: Changelog
-        run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ steps.get_version.outputs.VERSION }}
-          body_path: log.md
-          fail_on_unmatched_files: true
+
+      - name : Build RBXM
+        shell: bash
+        run: |
+          mkdir -p ~/rbxl-build-dir
+          mv ~/wally_build.toml ~/rbxl-build-dir/wally.toml
+          mv ~/publish.project.json ~/rbxl-build-dir/publish.project.json
+          cd ~/rbxl-build-dir
+          echo '[dependencies]\n Inputter = "adammillsy/inputter@${{ steps.get_version.outputs.VERSION }}"' > wally.toml
+          wally install
+          rojo build publish.project.json --o ../place.rbxl
+
+      # - name: Changelog
+      #   run: python3 .github/workflows/scripts/last_changelog.py CHANGELOG.md > log.md
+      # - name: Release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     name: Release ${{ steps.get_version.outputs.VERSION }}
+      #     body_path: log.md
+      #     fail_on_unmatched_files: true
