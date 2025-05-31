@@ -73,6 +73,4 @@ function MULTIPLE_PRESS:Destroy()
 	end
 end
 
-
-
 return MULTIPLE_PRESS :: MULTIPLE_PRESS

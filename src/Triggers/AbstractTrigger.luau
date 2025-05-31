@@ -13,7 +13,7 @@ type Trigger = Types.Trigger
 --[=[
 	@return Trigger -- The new AbstractTrigger object.
 ]=]
-function AbstractTrigger.new(concreteType : string, ... : any): Trigger
+function AbstractTrigger.new(concreteType: string, ...: any): Trigger
 	local self = setmetatable({}, AbstractTrigger)
 	--[=[
         @within AbstractTrigger
@@ -28,8 +28,8 @@ function AbstractTrigger.new(concreteType : string, ... : any): Trigger
     ]=]
 	self.OnDeactivated = Signal.new()
 
-    self.ConstructorArgs = {...}
-    self.ConcreteType = concreteType or error("Concrete type must be provided")
+	self.ConstructorArgs = { ... }
+	self.ConcreteType = concreteType or error("Concrete type must be provided")
 	return self
 end
 
@@ -60,11 +60,11 @@ end
     Converts the trigger to a table representation, for serialization purposes.
 ]=]
 function AbstractTrigger:__totable()
-    local tbl = {
-        Type = self.ConcreteType,
-        Arguments = self.ConstructorArgs,
-    }
-    return tbl
+	local tbl = {
+		Type = self.ConcreteType,
+		Arguments = self.ConstructorArgs,
+	}
+	return tbl
 end
 
 return AbstractTrigger
