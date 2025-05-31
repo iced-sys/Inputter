@@ -81,11 +81,11 @@ function Inputter.new(name: string, triggers: { Trigger }): Inputter
 	self.OnDeactivated = Signal.new()
 	--[=[
 		@within Inputter
-		@prop ActiveTriggers {Trigger}
+		@prop Triggers {Trigger}
 		@readonly
 		The triggers that the inputter is currently listening to.
 	]=]
-	self.ActiveTriggers = {}
+	self.Triggers = {}
 	self._activeConnections = {}
 	self:_setup(triggers)
 	return self
@@ -99,7 +99,7 @@ end
 ]=]
 function Inputter:_setup(triggers: { Trigger })
 	for _, Input in pairs(triggers) do
-		self:AddInput(Input)
+		self:AddTrigger(Input)
 	end
 end
 
@@ -108,11 +108,11 @@ end
 	@param trigger Trigger -- The trigger to add to the inputter.
 	Adds a new trigger to an already existing inputter.
 ]=]
-function Inputter:AddInput(trigger: Trigger)
+function Inputter:AddTrigger(trigger: Trigger)
 	if not trigger then
 		error("Trigger cannot be nil")
 	end
-	table.insert(self.ActiveTriggers, trigger)
+	table.insert(self.Triggers, trigger)
 	self._activeConnections[trigger] = {}
 	table.insert(
 		self._activeConnections[trigger],
@@ -134,10 +134,10 @@ end
 	@param Trigger Trigger -- The trigger to remove from the inputter.
 	Removes a trigger from an already existing inputter. This method is a work in progress, in the future it may be expanded to allow removal by keybind or other properties.
 ]=]
-function Inputter:RemoveInput(Trigger: Trigger)
-	for i, v in pairs(self.ActiveTriggers) do
+function Inputter:RemoveTrigger(Trigger: Trigger)
+	for i, v in pairs(self.Triggers) do
 		if v == Trigger then
-			table.remove(self.ActiveTriggers, i)
+			table.remove(self.Triggers, i)
 			break
 		end
 	end
@@ -156,7 +156,7 @@ end
 ]=]
 function Inputter:GetAllTriggers()
 	local triggers = {}
-	for _, trigger in pairs(self.ActiveTriggers) do
+	for _, trigger in pairs(self.Triggers) do
 		table.insert(triggers, trigger)
 	end
 	return triggers
@@ -237,6 +237,21 @@ function Inputter:Destroy()
 	for i, _ in pairs(self) do
 		self[i] = nil
 	end
+end
+
+--[=[
+	@within Inputter
+	Converts the inputter to a table representation, for serialization purposes.
+	@return {Name: string, Triggers: {Trigger}} -- The table representation of the inputter.
+]=]
+function Inputter:ToTable()
+	local tbl = {}
+	tbl.Name = self.Name
+	tbl.Triggers = {}
+	for _, trigger in pairs(self.Triggers) do
+		table.insert(tbl.Triggers, trigger:__totable())
+	end
+	return tbl
 end
 
 return Inputter

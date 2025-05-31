@@ -20,7 +20,8 @@ MULTIPLE_PRESS.__index = MULTIPLE_PRESS
 	@return Input -- The new MULTIPLE_PRESS object.
 ]=]
 function MULTIPLE_PRESS.new(BindingInfo: BindingInfo, PressCount: number, TimeFrame: number): Trigger
-	local self = setmetatable(AbstractTrigger.new(), MULTIPLE_PRESS)
+	local self = setmetatable(AbstractTrigger.new(script.Name, BindingInfo, PressCount, TimeFrame), MULTIPLE_PRESS)
+
 	self.Binding = Binding.new(BindingInfo)
 	self._MaxPresses = PressCount or warn("PressCount not provided, defaulting to 2") and 2
 	self._PressWindow = TimeFrame or warn("TimeFrame not provided, defaulting to 0.5") and 0.5
@@ -71,5 +72,7 @@ function MULTIPLE_PRESS:Destroy()
 		self.Binding = nil
 	end
 end
+
+
 
 return MULTIPLE_PRESS :: MULTIPLE_PRESS

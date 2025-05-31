@@ -21,7 +21,7 @@ PRESS.__index = PRESS
 	@return Input -- The new PRESS object.
 ]=]
 function PRESS.new(BindingInfo: BindingInfo): PRESS
-	local self = setmetatable(AbstractTrigger.new(), PRESS)
+	local self = setmetatable(AbstractTrigger.new(script.Name, BindingInfo), PRESS)
 	self.Binding = Binding.new(BindingInfo)
 	self._active = false
 	self:_setup()

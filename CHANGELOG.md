@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Method to convert inputter to table for serialization
+
 ## 0.0.3
 
 - Tidied project structure
