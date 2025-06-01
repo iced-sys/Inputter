@@ -1,3 +1,7 @@
+## 0.1.0
+
+- Added full serialization support
+
 ## 0.0.4
 
 - Method to convert inputter to table for serialization

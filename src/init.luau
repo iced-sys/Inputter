@@ -1,10 +1,20 @@
 local Signal = require(script.Parent.Signal)
+local Serializer = require(script.Serializer)
 
 local Types = require(script.Types)
 export type Inputter = Types.Inputter
 export type BindingInfo = Types.BindingInfo
 export type Signal<T...> = Types.Signal<T...>
 export type Trigger = Types.Trigger
+
+-- Version is read off of the wally package folder name
+-- If you modify the package structure this may fail, so just manually set the version value below in the format "0.0.0"
+-- The version can be found wherever you downloaded the package, check the GitHub release
+local Version = script.Parent.Name:match("@(.+)$")
+if not Version or not Version:match("^%d+%.%d+%.%d+$") then
+	warn("Inputter version did not read correctly, please manually set it. defaulting to '0.0.0'")
+	Version = "0.0.0"
+end
 
 local Inputter = {}
 Inputter.__index = Inputter
@@ -242,16 +252,43 @@ end
 --[=[
 	@within Inputter
 	Converts the inputter to a table representation, for serialization purposes.
-	@return {Name: string, Triggers: {Trigger}} -- The table representation of the inputter.
+	@return  string -- The JSON encoded representation of the inputter.
 ]=]
-function Inputter:ToTable()
+function Inputter:Serialize()
 	local tbl = {}
+	tbl.Version = Version
 	tbl.Name = self.Name
 	tbl.Triggers = {}
-	for _, trigger in pairs(self.Triggers) do
-		table.insert(tbl.Triggers, trigger:__totable())
+	for _, trigger : Types.Trigger in pairs(self.Triggers) do
+		table.insert(tbl.Triggers, trigger:_serialize())
 	end
-	return tbl
+	return Serializer.encode(tbl)
+end
+
+--[=[
+	@within Inputter
+	Rebuilds an inputter from a serialized string.
+	@param serialized string -- The serialized string representation of the inputter.
+	@return Inputter -- The rebuilt inputter object.
+]=]
+function Inputter.Deserialize(serialized: string)
+	local tbl = Serializer.decode(serialized)
+	-- Unfortunately only exact matches of inputter versions are supported.
+	-- I will endeavor to keep the serialization similar, so theoretically this may work across minor and patch versions.
+	-- But I cannot guarantee that, I would recommend keeping your version of inputter consistent.
+	if tbl.Version ~= Version then
+		error("Inputter version mismatch. Expected: " .. Version .. ", got: " .. tbl.Version)
+	end
+	local inputter = Inputter.new(tbl.Name, {})
+	for _, triggerData in pairs(tbl.Triggers) do
+		local triggerType = Inputter.Trigger[triggerData.Type]
+		if not triggerType then
+			error("Unknown trigger type: " .. tostring(triggerData.Type))
+		end
+		local trigger = triggerType(unpack(triggerData.Arguments))
+		inputter:AddTrigger(trigger)
+	end
+	return inputter
 end
 
 return Inputter

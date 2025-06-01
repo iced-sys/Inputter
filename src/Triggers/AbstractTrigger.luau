@@ -7,6 +7,7 @@ local AbstractTrigger = {}
 AbstractTrigger.__index = AbstractTrigger
 
 local Signal = require(script.Parent.Parent.Parent.Signal)
+local TableUtil = require(script.Parent.Parent.Parent.TableUtil)
 local Types = require(script.Parent.Parent.Types)
 type Trigger = Types.Trigger
 
@@ -28,7 +29,7 @@ function AbstractTrigger.new(concreteType: string, ...: any): Trigger
     ]=]
 	self.OnDeactivated = Signal.new()
 
-	self.ConstructorArgs = { ... }
+	self.ConstructorArgs = TableUtil.Copy({...}, true)
 	self.ConcreteType = concreteType or error("Concrete type must be provided")
 	return self
 end
@@ -54,17 +55,17 @@ function AbstractTrigger:_deactivated(...)
 end
 
 --[=[
-    @function __totable
+    @function _serialize
     @private
     @within AbstractTrigger
     Converts the trigger to a table representation, for serialization purposes.
 ]=]
-function AbstractTrigger:__totable()
+function AbstractTrigger:_serialize(): { Type: string, Arguments: { any } }
 	local tbl = {
 		Type = self.ConcreteType,
 		Arguments = self.ConstructorArgs,
 	}
-	return tbl
+	return TableUtil.Copy(tbl, true)
 end
 
 return AbstractTrigger

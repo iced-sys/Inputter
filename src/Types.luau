@@ -22,6 +22,8 @@ export type Inputter = {
 	Enable: (self: Inputter) -> (),
 	Disable: (self: Inputter) -> (),
 	Destroy: (self: Inputter) -> (),
+	Serialize : (self: Inputter) -> string, -- Serializes the inputter to a string.
+	Deserialize : (self: Inputter, serialized: string) -> Inputter, -- Rebuilds an inputter from a serialized string.
 }
 
 --[=[
@@ -45,6 +47,7 @@ export type Binding = {
 export type Trigger = {
 	OnActivated: Signal.Signal<() -> ()>,
 	OnDeactivated: Signal.Signal<() -> ()>,
+	_serialize : (self: Trigger) -> { Type: string, Arguments: { any } }
 }
 export type MULTIPLE_PRESS = Trigger & {
 	new: (BindingInfo: BindingInfo, PressCount: number, TimeFrame: number) -> Trigger,
