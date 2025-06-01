@@ -216,7 +216,7 @@ do
 				if vector then
 					return deflate(nil, vector.X, vector.Y, vector.Z)
 				end
-                return nil
+				return nil
 			else
 				local X, Y, Z = flate(nil, vector, 3)
 				return Vector3.new(X, Y, Z)
@@ -227,7 +227,7 @@ do
 				if vector then
 					return deflate("i2", vector.X, vector.Y, vector.Z)
 				end
-                return nil
+				return nil
 			else
 				local X, Y, Z = flate("i2", vector, 3)
 				return Vector3.new(X, Y, Z)
@@ -238,7 +238,7 @@ do
 				if vector then
 					return deflate(nil, vector.X, vector.Y)
 				end
-                return nil
+				return nil
 			else
 				local X, Y = flate(nil, vector, 2)
 				return Vector2.new(X, Y)
@@ -249,7 +249,7 @@ do
 				if vector then
 					return deflate("i2", vector.X, vector.Y)
 				end
-                return nil
+				return nil
 			else
 				local X, Y = flate("i2", vector, 2)
 				return Vector2.new(X, Y)
@@ -808,7 +808,7 @@ local function decode(s, opts)
 	end
 	if type(more) ~= "function" then
 		function more(_, ...)
-            error("error: 'more' function expected, got ", ...)
+			error("error: 'more' function expected, got ", ...)
 		end
 	end
 

@@ -259,7 +259,7 @@ function Inputter:Serialize()
 	tbl.Version = Version
 	tbl.Name = self.Name
 	tbl.Triggers = {}
-	for _, trigger : Types.Trigger in pairs(self.Triggers) do
+	for _, trigger: Types.Trigger in pairs(self.Triggers) do
 		table.insert(tbl.Triggers, trigger:_serialize())
 	end
 	return Serializer.encode(tbl)

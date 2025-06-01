@@ -29,7 +29,7 @@ function AbstractTrigger.new(concreteType: string, ...: any): Trigger
     ]=]
 	self.OnDeactivated = Signal.new()
 
-	self.ConstructorArgs = TableUtil.Copy({...}, true)
+	self.ConstructorArgs = TableUtil.Copy({ ... }, true)
 	self.ConcreteType = concreteType or error("Concrete type must be provided")
 	return self
 end
