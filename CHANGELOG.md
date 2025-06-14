@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Improved the serializer, now supporting serializing and deserializing in different run contexts
+
 ## 0.1.0
 
 - Added full serialization support
