@@ -4,6 +4,7 @@
 
 **Inputter** is a fully-typed, cross-platform ROBLOX input manager for clean and efficient input handling across PC, mobile, and console devices.
 
+**⚠️ Roblox-TS implementation is in development.**
 ---
 
 ## Features
