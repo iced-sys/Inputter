@@ -1,3 +1,8 @@
+## 0.1.2
+
+- Added a HOLD trigger
+- Revised GUI input detection to be more accurate
+
 ## 0.1.1
 
 - Improved the serializer, now supporting serializing and deserializing in different run contexts
