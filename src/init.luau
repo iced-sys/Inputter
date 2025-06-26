@@ -22,6 +22,7 @@ Inputter.__index = Inputter
 Inputter.Trigger = {
 	MULTIPLE_PRESS = require(script.Triggers.MULTIPLE_PRESS).new,
 	PRESS = require(script.Triggers.PRESS).new,
+	HOLD = require(script.Triggers.HOLD).new,
 }
 
 --[=[

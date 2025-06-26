@@ -55,5 +55,8 @@ export type MULTIPLE_PRESS = Trigger & {
 export type PRESS = Trigger & {
 	new: (BindingInfo: BindingInfo) -> Trigger,
 }
+export type HOLD = Trigger & {
+	new: (BindingInfo: BindingInfo, HoldTime: number) -> Trigger,
+}
 
 return {}

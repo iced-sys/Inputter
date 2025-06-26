@@ -53,11 +53,18 @@ end
 -- Shouldn't be called by any user.
 function Binding:_setup()
 	if typeof(self.Input) == "Instance" and self.Input:IsA("GuiButton") then
-		local connection = self.Input.Activated:Connect(function(input, clickCount)
-			self:_pressed(input, false, clickCount)
-			self:_released(input, false, clickCount)
+		local connection1 = self.Input.InputBegan:Connect(function(input)
+			if input.UserInputState == Enum.UserInputState.Begin then
+				self:_pressed(input)
+			end
 		end)
-		table.insert(self._connections, connection)
+		local connection2 = self.Input.InputEnded:Connect(function(input)
+			if input.UserInputState == Enum.UserInputState.End then
+				self:_released(input)
+			end
+		end)
+		table.insert(self._connections, connection1)
+		table.insert(self._connections, connection2)
 	elseif typeof(self.Input) == "EnumItem" then
 		local connection1 = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
 			if not self.IgnoreGameProcessedEvent then
