@@ -58,5 +58,8 @@ export type PRESS = Trigger & {
 export type HOLD = Trigger & {
 	new: (BindingInfo: BindingInfo, HoldTime: number) -> Trigger,
 }
+export type SHORT_PRESS = Trigger & {
+	new: (BindingInfo: BindingInfo, MaxPressTime: number?) -> Trigger,
+}
 
 return {}

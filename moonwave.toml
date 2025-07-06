@@ -6,7 +6,7 @@ classes = ["Inputter"]
 
 [[classOrder]]
 section = "Triggers"
-classes = ["MULTIPLE_PRESS", "PRESS", "HOLD"]
+classes = ["MULTIPLE_PRESS", "PRESS", "HOLD", "SHORT_PRESS"]
 
 [docusaurus]
 onBrokenLinks = "throw"

@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Added a SHORT_PRESS trigger, will only activate when the input is held for less than a given time.
+
 ## 0.1.2
 
 - Added a HOLD trigger
